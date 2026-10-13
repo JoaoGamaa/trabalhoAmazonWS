@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101c2c">
+  <meta name="description" content="Apresentação do Grupo G3 sobre Amazon DynamoDB: características, história, empresas, vantagens, limitações e prática com Docker.">
+  <title>Amazon DynamoDB · Apresentação G3</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#presentation">Ir para o slide</a>
+  <header class="toolbar">
+    <a class="wordmark" href="#slide-1" aria-label="Ir para a capa">DynamoDB<span> / G3</span></a>
+    <div class="toolbar-actions">
+      <button id="overview-button" class="text-button" type="button" title="Tópicos (O)">Tópicos</button>
+      <button id="notes-button" class="text-button" type="button" title="Fala deste slide (N)">Falas</button>
+      <button id="sources-button" class="text-button" type="button">Fontes</button>
+      <button id="fullscreen-button" class="icon-button" type="button" aria-label="Ativar tela cheia" title="Tela cheia (F)">
+        <span aria-hidden="true">⛶</span>
+      </button>
+    </div>
+  </header>
+
+  <main class="viewport" id="presentation" tabindex="-1" aria-label="Apresentação Amazon DynamoDB">
+    <div class="stage-wrap">
+      <div class="stage">
+        <section class="slide cover is-active" id="slide-1" data-title="Amazon DynamoDB" data-topic="Capa" aria-labelledby="title-1">
+          <div class="cover-content">
+            <p class="eyebrow">Banco de dados não relacional</p>
+            <h1 id="title-1">Amazon<br><span>DynamoDB</span></h1>
+            <p class="cover-description">Características, aplicações e uma<br>demonstração com DynamoDB Local</p>
+            <div class="cover-bottom"><span>Grupo G3</span><span>Pesquisa e tutorial de uso</span></div>
+          </div>
+          <div class="cover-aside" aria-label="Ideias principais">
+            <p><strong>NoSQL</strong><span>Chave-valor e documentos</span></p>
+            <p><strong>AWS</strong><span>Infraestrutura gerenciada</span></p>
+            <p><strong>Local</strong><span>Prática com Docker e AWS CLI</span></p>
+          </div>
+        </section>
+
+        <section class="slide" id="slide-2" data-title="Principais características" data-topic="Características" hidden aria-labelledby="title-2">
+          <div class="slide-heading"><p class="eyebrow">01 / Características</p><h2 id="title-2">Como o DynamoDB organiza os dados</h2></div>
+          <div class="two-columns characteristics">
+            <div class="content-list">
+              <div><h3>Chave-valor e documentos</h3><p>Tabelas com itens e atributos flexíveis.</p></div>
+              <div><h3>Chaves definem o acesso</h3><p>Chave de partição e chave de ordenação opcional.</p></div>
+              <div><h3>Serviço gerenciado</h3><p>A AWS cuida da infraestrutura, da disponibilidade e da escala.</p></div>
+              <div><h3>Recursos para a aplicação</h3><p>Índices, transações ACID, backups e integração com outros serviços.</p></div>
+            </div>
+            <div class="data-example">
+              <p class="small-label">Exemplo da prática · AlunosG3DynamoDB</p>
+              <dl class="record">
+                <div><dt>curso</dt><dd>Sistemas de Informação<span>Chave de partição</span></dd></div>
+                <div><dt>matricula</dt><dd>A001<span>Chave de ordenação</span></dd></div>
+                <div><dt>nome</dt><dd>João</dd></div>
+                <div><dt>idade</dt><dd>22</dd></div>
+              </dl>
+              <p class="example-caption">A combinação de curso e matrícula identifica o aluno.</p>
+            </div>
+          </div>
+          <p class="slide-source">Base: PDF, p. 1 · Documentação AWS [1–4, 12]</p>
+        </section>
+
+        <section class="slide history" id="slide-3" data-title="Histórico de desenvolvimento" data-topic="Histórico" hidden aria-labelledby="title-3">
+          <div class="slide-heading"><p class="eyebrow">02 / Histórico</p><h2 id="title-3">A evolução do DynamoDB</h2></div>
+          <p class="lead">A experiência da Amazon com comércio eletrônico em grande escala orientou o desenvolvimento do serviço.</p>
+          <ol class="timeline">
+            <li><span class="year">2007</span><h3>Dynamo</h3><p>Artigo sobre o sistema interno de armazenamento chave-valor da Amazon.</p></li>
+            <li><span class="year">2012</span><h3>Lançamento público</h3><p>DynamoDB é lançado em 18 de janeiro como serviço gerenciado da AWS.</p></li>
+            <li><span class="year">2013–17</span><h3>Mais recursos</h3><p>Índices, Streams, tabelas globais e recursos de backup e restauração.</p></li>
+            <li><span class="year">2018</span><h3>Recuperação e ACID</h3><p>Recuperação para um ponto no tempo e transações ACID.</p></li>
+          </ol>
+          <p class="takeaway"><strong>Dynamo e DynamoDB são sistemas distintos.</strong> O primeiro influenciou o desenvolvimento do segundo.</p>
+          <p class="slide-source">Base: PDF, p. 2 · AWS News Blog [5]</p>
+        </section>
+
+        <section class="slide companies" id="slide-4" data-title="Utilização por empresas" data-topic="Empresas" hidden aria-labelledby="title-4">
+          <div class="slide-heading"><p class="eyebrow">03 / Empresas</p><h2 id="title-4">Onde o DynamoDB é utilizado</h2></div>
+          <div class="company-rows">
+            <div><h3>Disney+</h3><p>Conteúdo, metadados e ações dos usuários.</p><span>Listas para assistir e continuidade entre dispositivos.</span></div>
+            <div><h3>Samsung Cloud</h3><p>Índice de metadados de dados de dispositivos Galaxy.</p><span>Os arquivos ficam no S3; o DynamoDB ajuda a localizá-los.</span></div>
+            <div><h3>Mercado Livre</h3><p>Suporte à operação de uma plataforma em grande escala.</p><span>Redução do trabalho operacional de administrar o banco.</span></div>
+          </div>
+          <p class="takeaway">Esses são usos específicos: as empresas também podem utilizar outros bancos de dados.</p>
+          <p class="slide-source">Base: PDF, p. 2 · Casos oficiais de clientes AWS [6]</p>
+        </section>
+
+        <section class="slide advantages" id="slide-5" data-title="Quando é vantajoso" data-topic="Vantagens" hidden aria-labelledby="title-5">
+          <div class="slide-heading"><p class="eyebrow">04 / Vantagens</p><h2 id="title-5">Quando escolher o DynamoDB</h2></div>
+          <div class="two-columns advantages-content">
+            <div class="content-list">
+              <div><h3>Consultas conhecidas</h3><p>Acessos por chaves e índices definidos desde a modelagem.</p></div>
+              <div><h3>Grande escala e tráfego variável</h3><p>Muitas leituras e escritas, com capacidade sob demanda.</p></div>
+              <div><h3>Menos administração</h3><p>Infraestrutura gerenciada e replicação entre regiões com tabelas globais.</p></div>
+            </div>
+            <div class="comparison">
+              <p class="small-label">Exemplo · Loja virtual</p>
+              <h3>Consultar um carrinho<br>pelo ID do usuário</h3>
+              <p>É um acesso previsível que pode ser atendido diretamente por uma chave.</p>
+              <div class="comparison-rule"></div>
+              <p class="small-label">Em um banco relacional</p>
+              <p>Consultas livres e cruzamentos entre muitas entidades costumam ser mais naturais.</p>
+            </div>
+          </div>
+          <p class="slide-source">Base: PDF, p. 3 · Modelagem e recursos AWS [2, 7, 12]</p>
+        </section>
+
+        <section class="slide limitations" id="slide-6" data-title="Quando evitar" data-topic="Limitações" hidden aria-labelledby="title-6">
+          <div class="slide-heading"><p class="eyebrow">05 / Limitações</p><h2 id="title-6">Quando outra solução pode ser melhor</h2></div>
+          <div class="two-columns limitations-content">
+            <div class="content-list">
+              <div><h3>Muitas junções e relatórios livres</h3><p>Não há JOIN; cruzamentos exigem modelagem ou processamento adicional.</p></div>
+              <div><h3>Consultas imprevisíveis</h3><p>Podem exigir novos índices ou Scan, que percorre itens da tabela.</p></div>
+              <div><h3>Operação independente da AWS</h3><p>O serviço de produção depende da nuvem; custos também precisam ser avaliados.</p></div>
+            </div>
+            <div class="limits">
+              <div><strong>400 <span>KB</span></strong><p>Limite por item, incluindo nomes e valores dos atributos.</p></div>
+              <div><strong>100 <span>itens</span></strong><p>Até 4 MB por transação. As garantias transacionais não abrangem operações entre regiões.</p></div>
+              <p class="example-caption">Arquivos grandes: armazenar o arquivo em um serviço de objetos e sua referência no banco.</p>
+            </div>
+          </div>
+          <p class="slide-source">Base: PDF, p. 3 · Restrições, transações e Scan AWS [4, 8, 16]</p>
+        </section>
+
+        <section class="slide practice" id="slide-7" data-title="Prática com Docker" data-topic="Prática" hidden aria-labelledby="title-7">
+          <div class="slide-heading"><p class="eyebrow">06 / Parte prática</p><h2 id="title-7">DynamoDB Local com Docker</h2></div>
+          <div class="practice-columns">
+            <div class="practice-summary">
+              <p class="lead">Cadastro de alunos no próprio computador.</p>
+              <ol class="practice-flow">
+                <li><strong>Preparar</strong><span>Iniciar o contêiner e criar a tabela.</span></li>
+                <li><strong>Manipular</strong><span>Inserir João e Maria; consultar; atualizar a idade de João para 23.</span></li>
+                <li><strong>Conferir e encerrar</strong><span>Excluir Maria, consultar o curso e remover a tabela.</span></li>
+              </ol>
+              <p class="practice-model"><strong>Tabela:</strong> AlunosG3DynamoDB<br><strong>Chaves:</strong> curso + matricula</p>
+              <button id="evidence-button" class="underlined-button" type="button">Ver resultados do PDF ↗</button>
+            </div>
+            <div class="terminal">
+              <div class="terminal-top"><span>PowerShell · AWS CLI</span><button id="copy-command" type="button">Copiar</button></div>
+              <label class="sr-only" for="command-select">Etapa da prática</label>
+              <select id="command-select" aria-controls="command-code command-description"></select>
+              <p id="command-description" class="command-description"></p>
+              <pre tabindex="0" aria-label="Comandos da etapa selecionada"><code id="command-code"></code></pre>
+              <div class="terminal-bottom"><span id="command-count"></span><div><button id="previous-command" type="button" aria-label="Etapa anterior">←</button><button id="next-command" type="button" aria-label="Próxima etapa">→</button></div></div>
+            </div>
+          </div>
+          <p class="slide-source">Base: PDF, pp. 4–17 · Comandos com endpoint local: http://localhost:8000</p>
+        </section>
+
+        <section class="slide closing" id="slide-8" data-title="Conclusão" data-topic="Conclusão" hidden aria-labelledby="title-8">
+          <p class="eyebrow">Conclusão</p>
+          <h2 id="title-8">O padrão de acesso<br>orienta a escolha do banco</h2>
+          <p class="closing-lead">O DynamoDB atende aplicações com consultas bem definidas e necessidade de grande escala.</p>
+          <div class="closing-points"><p><strong>Planejar</strong> as chaves e os índices.</p><p><strong>Avaliar</strong> consultas, limites e custos.</p></div>
+          <div class="closing-bottom"><span>Grupo G3 · Amazon DynamoDB</span><button class="underlined-button light" id="closing-source-button" type="button">Consultar fontes ↗</button></div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <footer class="navigation" aria-label="Controles da apresentação">
+    <div class="nav-topic"><span id="slide-number">01 / 08</span><span id="slide-topic">Capa</span></div>
+    <div class="slide-dots" id="slide-dots" aria-label="Selecionar slide"></div>
+    <div class="nav-buttons"><button id="previous-slide" class="icon-button" type="button" aria-label="Slide anterior" disabled>←</button><button id="next-slide" class="icon-button next-button" type="button" aria-label="Próximo slide">→</button></div>
+  </footer>
+  <div class="progress-track" aria-hidden="true"><div id="progress-bar"></div></div>
+  <p class="keyboard-hint">← → avançar · F tela cheia · N falas</p>
+  <div class="sr-only" aria-live="polite" id="slide-announcement"></div>
+  <div id="toast" role="status" hidden></div>
+
+  <dialog id="overview-dialog" class="modal">
+    <div class="modal-heading"><h2>Tópicos da apresentação</h2><button type="button" class="close-button" data-close aria-label="Fechar">×</button></div>
+    <nav id="overview-list" aria-label="Ir para um tópico"></nav>
+  </dialog>
+  <dialog id="notes-dialog" class="modal notes-modal">
+    <div class="modal-heading"><div><p class="small-label" id="notes-index"></p><h2 id="notes-title">Fala do slide</h2></div><button type="button" class="close-button" data-close aria-label="Fechar">×</button></div>
+    <p id="notes-text" class="speaker-text"></p>
+    <p id="notes-context" class="notes-context"></p>
+    <p class="modal-hint">Feche para retomar o slide. Atalho: N.</p>
+  </dialog>
+  <dialog id="sources-dialog" class="modal sources-modal">
+    <div class="modal-heading"><h2>Fontes e documento</h2><button type="button" class="close-button" data-close aria-label="Fechar">×</button></div>
+    <p>Conteúdo resumido do trabalho do Grupo G3. A numeração das fontes segue o PDF.</p>
+    <a class="pdf-link" href="assets/trabalho-dynamodb.pdf" target="_blank" rel="noopener">Abrir o trabalho completo em PDF ↗</a>
+    <ol class="source-links">
+      <li><a href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Introduction.html" target="_blank" rel="noopener">[1] O que é o Amazon DynamoDB</a></li>
+      <li><a href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.CoreComponents.html" target="_blank" rel="noopener">[2] Componentes e chaves</a></li>
+      <li><a href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/transaction-apis.html" target="_blank" rel="noopener">[4] Transações</a></li>
+      <li><a href="https://aws.amazon.com/blogs/aws/happy-birthday-dynamodb/" target="_blank" rel="noopener">[5] Histórico de desenvolvimento</a></li>
+      <li><a href="https://aws.amazon.com/dynamodb/customers/" target="_blank" rel="noopener">[6] Clientes e casos de uso</a></li>
+      <li><a href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/bp-modeling-nosql.html" target="_blank" rel="noopener">[7] Modelagem de dados</a></li>
+      <li><a href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Constraints.html" target="_blank" rel="noopener">[8] Limites do serviço</a></li>
+      <li><a href="https://docs.aws.amazon.com/cli/latest/reference/dynamodb/" target="_blank" rel="noopener">[9] Comandos da AWS CLI</a></li>
+      <li><a href="https://aws.amazon.com/dynamodb/features/" target="_blank" rel="noopener">[12] Recursos do DynamoDB</a></li>
+      <li><a href="https://aws.amazon.com/dynamodb/pricing/" target="_blank" rel="noopener">[13] Cobrança</a></li>
+      <li><a href="https://docs.aws.amazon.com/cli/latest/reference/dynamodb/scan.html" target="_blank" rel="noopener">[16] Operação Scan</a></li>
+      <li><a href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.html" target="_blank" rel="noopener">[17] DynamoDB Local</a></li>
+    </ol>
+    <p class="source-addition">Orientação complementar para configurar credenciais fictícias na prática local: <a href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.DownloadingAndRunning.html" target="_blank" rel="noopener">documentação de execução local da AWS</a>.</p>
+  </dialog>
+  <dialog id="evidence-dialog" class="modal evidence-modal">
+    <div class="modal-heading"><h2>Resultados da prática</h2><button type="button" class="close-button" data-close aria-label="Fechar">×</button></div>
+    <p>Capturas originais extraídas do PDF.</p>
+    <figure><img src="assets/alunos.png" alt="Terminal com os registros de João e Maria na tabela" loading="lazy"><figcaption>João e Maria armazenados na tabela · PDF, p. 9.</figcaption></figure>
+    <figure><img src="assets/atualizacao.png" alt="Comando update-item alterando a idade de João" loading="lazy"><figcaption>Atualização da idade de João · PDF, p. 11.</figcaption></figure>
+    <figure><img src="assets/encerramento.png" alt="Exclusão da tabela AlunosG3DynamoDB no terminal" loading="lazy"><figcaption>Exclusão da tabela ao final da prática · PDF, p. 17.</figcaption></figure>
+  </dialog>
+  <noscript><style>.viewport,.stage-wrap,.stage{width:100%!important;height:auto!important;transform:none!important}.slide[hidden],.slide{display:block!important;position:relative!important;width:100%!important;min-height:900px}.toolbar-actions,.navigation,.progress-track,.keyboard-hint{display:none}.two-columns{grid-template-columns:1fr}</style><p>Ative o JavaScript para navegar pelos slides e consultar os comandos.</p></noscript>
+</body>
+</html>
